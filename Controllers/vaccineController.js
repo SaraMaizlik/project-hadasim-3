@@ -1,0 +1,1 @@
+const Vaccine = require('../models/vaccineModel')

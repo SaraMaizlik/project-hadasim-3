@@ -1,1 +1,1 @@
-const Member = require('../models/memberModel')
+const Member = require('../Models/memberModel')

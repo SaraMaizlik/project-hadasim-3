@@ -27,7 +27,7 @@ const findMemberById = async (req, res) => {
         res.status(200).json({ getMemberById: member });
     }
     catch (error) {
-        res.status(400).send("cannot save new member: " + error.message)
+        res.status(400).send("cannot find the member: " + error.message)
     }
 }
 

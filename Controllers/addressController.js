@@ -5,7 +5,7 @@ const newAddress = async (req, res) => {
         city: req.body.city,
         street: req.body.street,
         number: req.body.number,
-    }).populate()
+    })
     try {
         await personalAddress.save();
         res.status(200).json({ newAddress: personalAddress });

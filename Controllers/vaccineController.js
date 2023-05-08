@@ -4,7 +4,7 @@ const newVaccine = async (req, res) => {
     let coronaVaccine = new Vaccine({
         receivingDate: req.body.receivingDate,
         manufacturer: req.body.manufacturer,
-    }).populate()
+    })
     try {
         await coronaVaccine.save();
         res.status(200).json({ newVaccine: coronaVaccine });

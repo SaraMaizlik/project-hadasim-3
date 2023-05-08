@@ -11,7 +11,7 @@ const newMember = async (req, res) => {
         cellPhone: req.body.cellPhone,
         vaccine: req.body.vaccine,//? לא חייב
         positiveAndRecoveryDate: req.body.positiveAndRecoveryDate//?לא חייב
-    }).populate()
+    })
     try {
         await HMOmember.save();
         res.status(200).json({ newMember: HMOmember });
@@ -39,4 +39,4 @@ const getAllMembers = (req, res) => {
     })
 }
 
-module.exports = { newMember, findMemberById, getAllMembers}
+module.exports = { newMember, findMemberById, getAllMembers }

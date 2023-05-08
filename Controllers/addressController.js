@@ -25,3 +25,4 @@ const findAddressById = async (req, res) => {
     }
 }
 
+module.exports = { newAddress, findAddressById }

@@ -3,8 +3,8 @@ const PORT = 3042
 const express=require('express')//יבוא של המודול
 const app=express() // מימוש של השרת
 
-const cors = require('cors');
-app.use(cors())
+const cors = require('cors'); // מודול שמאפשר להתחבר לקוח ושרת
+app.use(cors()) // הפעלה
 
 const bodyParser = require("body-parser") //יבוא ספריה להמרה לגיסון את מה שמגיע מהקליינט
 app.use(bodyParser.json()) // מימוש הספריה
@@ -13,12 +13,11 @@ const mongoose = require('mongoose')//התקנת ספריה להתחברות ל�
 
 const env = require('dotenv')//env להשתמש במשתני מערכת בקובץ
 env.config()// מימוש המשתנים
-
+ 
 mongoose.connect(process.env.MONGO_CONNECTION).then(() => {
     console.log('connect to mongo');
  
-}).catch(err => { "myErr" + err })
-
+}).catch(err => { console.log("myErr" + err )})
 
 //routes
 // (שכתבנו בעצמינו) ייבוא של הספריה של המודל

@@ -1,22 +1,22 @@
 const Vaccine = require('../Models/vaccineModel')
 
-const addVaccines = async (prop) => {
+const addVaccines = async (prop1, prop2) => {
     let vaccinearr = []
     let coronaVaccine1 = new Vaccine({
-        receivingDate: prop.receivingDate1,
-        manufacturer: prop.manufacturer1,
+        receivingDate: prop1.receivingDate1,
+        manufacturer: prop2.manufacturer1,
     })
     let coronaVaccine2 = new Vaccine({
-        receivingDate: prop.receivingDate2,
-        manufacturer: prop.manufacturer2,
+        receivingDate: prop1.receivingDate2,
+        manufacturer: prop2.manufacturer2,
     })
     let coronaVaccine3 = new Vaccine({
-        receivingDate: prop.receivingDate3,
-        manufacturer: prop.manufacturer3,
+        receivingDate: prop1.receivingDate3,
+        manufacturer: prop2.manufacturer3,
     })
     let coronaVaccine4 = new Vaccine({
-        receivingDate: prop.receivingDate4,
-        manufacturer: prop.manufacturer4,
+        receivingDate: prop1.receivingDate4,
+        manufacturer: prop2.manufacturer4,
     })
     try {
         await coronaVaccine1.save();

@@ -1,28 +1,28 @@
 const Address = require('../Models/addressModel')
 
-const newAddress = async (req, res) => {
-    let personalAddress = new Address({       
-        city: req.body.city,
-        street: req.body.street,
-        number: req.body.number,
+const addAddress = async (props) => {
+    let personalAddress = new Address({
+        city: props.city,
+        street: props.street,
+        houseNumber: props.houseNumber,
     })
     try {
         await personalAddress.save();
-        res.status(200).json({ newAddress: personalAddress });
+        return personalAddress;
     }
     catch (error) {
-        res.status(400).send("cannot save new address: " + error.message)
+        return (null)
     }
 }
 
 const findAddressById = async (req, res) => {
     try {
-        let address = await Address.findById(req.body.id)
-        res.status(200).json({ getAddressById: address });
+        let address = await Address.findById(req.params.id)
+        res.json({ getAddressById: address });
     }
     catch (error) {
-        res.status(400).send("cannot find the address: " + error.message)
+        res.send("cannot find the address: " + error.message)
     }
 }
 
-module.exports = { newAddress, findAddressById }
+module.exports = { addAddress, findAddressById }

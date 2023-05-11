@@ -1,41 +1,62 @@
 const Member = require('../Models/memberModel')
+const {addAddress}=require('./addressController')
+const {addVaccines} = require('./vaccineController')
 
 const newMember = async (req, res) => {
+    //console.log(req.body.manufacturer.manufacturer1)
+
+    // add adress
+    const addaddress= await addAddress(req.body.address)
+    let userAddress;
+    if(addaddress){
+        userAddress=addaddress
+    }
+
+    // add vaccines
+    const addvaccine= await addVaccines(req.body.vaccine, req.body.manufacturer)
+    let userVaccines;
+    if(addvaccine){
+        userVaccines=addvaccine
+    }
+
+    // add member
     let HMOmember = new Member({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        personalID: req.body.personalID,
-        address: req.body.address,
-        birthDate: req.body.birthDate,
-        phone: req.body.phone,
-        cellPhone: req.body.cellPhone,
-        vaccine: req.body.vaccine,//? לא חייב
-        positiveAndRecoveryDate: req.body.positiveAndRecoveryDate//?לא חייב
+        firstName: req.body.member.firstName,
+        lastName: req.body.member.lastName,
+        personalID: req.body.member.personalID,
+        address: userAddress,
+        birthDate: req.body.member.birthDate,
+        phone: req.body.member.phone,
+        cellPhone: req.body.member.cellPhone,       
+        vaccine: userVaccines,
+        positiveDate: req.body.member.positiveDate,
+        recoveryDate: req.body.member.recoveryDate,
     })
     try {
         await HMOmember.save();
-        res.status(200).json({ newMember: HMOmember });
+        res.json({ newMember: HMOmember });
     }
     catch (error) {
-        res.status(400).send("cannot save new member: " + error.message)
+        res.send("cannot save new member: " + error.message)
     }
 }
 
 const findMemberById = async (req, res) => {
-    try {
-        let member = await Member.findById(req.body.personalID)
-        res.status(200).json({ getMemberById: member });
+    console.log("find by id");
+    try {       
+        let member = await Member.findOne({personalID:req.params.id}).populate("vaccine").populate("address")      
+        res.json({ getMemberById: member });
     }
     catch (error) {
-        res.status(400).send("cannot find the member: " + error.message)
+        res.send("cannot find the member: " + error.message)
     }
 }
 
 const getAllMembers = (req, res) => {
-    Member.find().then((members) => {
-        res.status(205).json({ getAllmembers: members })
+    Member.find().populate().then((members) => {
+        res.json({ getAllmembers: members })
     }).catch((err) => {
-        res.status(400).send("cannot find the member list: " + error.message)
+        res.send("cannot find the member list: " + error.message)
     })
 }
 

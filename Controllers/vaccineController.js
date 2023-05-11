@@ -1,27 +1,47 @@
 const Vaccine = require('../Models/vaccineModel')
 
-const newVaccine = async (req, res) => {
-    let coronaVaccine = new Vaccine({
-        receivingDate: req.body.receivingDate,
-        manufacturer: req.body.manufacturer,
+const addVaccines = async (prop) => {
+    let vaccinearr = []
+    let coronaVaccine1 = new Vaccine({
+        receivingDate: prop.receivingDate1,
+        manufacturer: prop.manufacturer1,
+    })
+    let coronaVaccine2 = new Vaccine({
+        receivingDate: prop.receivingDate2,
+        manufacturer: prop.manufacturer2,
+    })
+    let coronaVaccine3 = new Vaccine({
+        receivingDate: prop.receivingDate3,
+        manufacturer: prop.manufacturer3,
+    })
+    let coronaVaccine4 = new Vaccine({
+        receivingDate: prop.receivingDate4,
+        manufacturer: prop.manufacturer4,
     })
     try {
-        await coronaVaccine.save();
-        res.status(200).json({ newVaccine: coronaVaccine });
+        await coronaVaccine1.save();
+        vaccinearr.push(coronaVaccine1);
+        await coronaVaccine2.save();
+        vaccinearr.push(coronaVaccine2);
+        await coronaVaccine3.save();
+        vaccinearr.push(coronaVaccine3);
+        await coronaVaccine4.save();
+        vaccinearr.push(coronaVaccine4);
     }
     catch (error) {
-        res.status(400).send("cannot save new veccine: " + error.message)
+        return (null)
     }
+    return vaccinearr;
 }
 
 const findVaccineById = async (req, res) => {
     try {
         let vaccine = await Vaccine.findById(req.body.id)
-        res.status(200).json({ getVaccineById: vaccine });
+        res.json({ getVaccineById: vaccine });
     }
     catch (error) {
-        res.status(400).send("cannot find the vaccine: " + error.message)
+        res.send("cannot find the vaccine: " + error.message)
     }
 }
 
-module.exports = { newVaccine, findVaccineById}
+module.exports = { addVaccines, findVaccineById }
